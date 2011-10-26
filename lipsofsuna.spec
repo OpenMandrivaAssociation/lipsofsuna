@@ -1,5 +1,5 @@
 %define Werror_cflags %nil
-%define	Summary	Lips of Suna is a tongue-in-cheek dungeon crawl game.
+%define	Summary	Lips of Suna is a tongue-in-cheek dungeon crawl game
 
 Summary:	%{Summary}
 Name:		lipsofsuna
