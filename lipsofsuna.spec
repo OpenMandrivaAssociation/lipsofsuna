@@ -12,6 +12,7 @@ License:	GPL
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	automake SDL-devel desktop-file-utils ImageMagick sqlite3-devel bullet-devel
 BuildRequires:	SDL_mixer-devel	GL-devel SDL_ttf-devel glew-devel openal-devel libflac-devel libvorbis-devel enet-devel 
+BuildRequires:	lua-devel inotify-tools-devel 
 
 %description
 Lips of Suna is a tongue-in-cheek dungeon crawl game that takes place in the chaotic dungeons of Suna. 
