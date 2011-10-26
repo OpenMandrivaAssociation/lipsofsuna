@@ -3,10 +3,10 @@
 
 Summary:	%{Summary}
 Name:		lipsofsuna
-Version:	0.4.0
+Version:	0.5.0
 Release:	%mkrel 1
-Source0:	http://downloads.sourceforge.net/project/lipsofsuna/lipsofsuna/0.4.0/lipsofsuna-0.4.0.tar.gz
-URL:		http://www.descent2.de/
+Source0:	http://sourceforge.net/projects/%{name}/files/%name}/%{version}/%{name}-%{version}.tar.gz
+URL:		http://sourceforge.net/projects/lipsofsuna/
 Group:		Games/Arcade
 License:	GPL
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -23,22 +23,22 @@ solve quests, explore new places, and craft custom items. Luckily you don't need
 %prep 
 %setup -q
 
-
 %build
-./waf configure build install \
-	--relpath=false \
-	--bindir=%{buildroot}/%{_gamesbindir} \
-	--datadir=%{buildroot}%{_gamesdatadir} \
-	--libdir=%{buildroot}%{_gameslibdir}
+./waf configure --prefix=%{_prefix} \
+		--libdir=%{_libdir} \
+		--bindir=%{_bindir} \
+		--relpath=false \
+		--optimize=true
 
 %install
 rm -rf %{buildroot}
+./waf install --destdir=$RPM_BUILD_ROOT
 
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Lips of Suna
 Comment=%{Summary}
-Exec=%{_gamesbindir}/%{name}
+Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
@@ -46,20 +46,13 @@ StartupNotify=true
 Categories=Game;ArcadeGame;X-MandrivaLinux-MoreApplications-Games-Arcade;
 EOF
 
-# install -d %{buildroot}{%{_iconsdir},%{_miconsdir},%{_liconsdir}}
-# convert -resize 16x16 lipsofsuna-ico-32x32.gif %{buildroot}%{_miconsdir}/%{name}.png
-# convert -resize 32x32 lipsofsuna-ico-32x32.gif %{buildroot}%{_iconsdir}/%{name}.png
-# convert -resize 48x48 lipsofsuna-ico-64x64.gif %{buildroot}%{_liconsdir}/%{name}.png
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr (-,root,root)
-%{_gamesbindir}/%{name}
-%dir %{_gamesdatadir}/%{name}
-# %{_datadir}/applications/mandriva-%{name}.desktop
-# %{_miconsdir}/%{name}.png
-# %{_iconsdir}/%{name}.png
-# %{_liconsdir}/%{name}.png
-
+%{_bindir}/*
+%{_datadir}/%name
+%{_datadir}/applications/*.desktop
+%{_datadir}/pixmaps
