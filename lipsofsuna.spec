@@ -1,72 +1,70 @@
-%define Werror_cflags %nil
-%define	Summary	Lips of Suna is a tongue-in-cheek dungeon crawl game
-
-Summary:	%{Summary}
+Summary:	Lips of Suna is a tongue-in-cheek dungeon crawl game
 Name:		lipsofsuna
-Version:	0.5.0
-Release:	2
-Source0:	http://sourceforge.net/projects/%{name}/files/%name}/%{version}/%{name}-%{version}.tar.gz
-URL:		http://sourceforge.net/projects/lipsofsuna/
+Version:	0.8.0
+Release:	1
+License:	LGPLv3+
 Group:		Games/Arcade
-License:	GPL
-BuildRequires:	automake SDL-devel desktop-file-utils imagemagick sqlite3-devel bullet-devel
-BuildRequires:	SDL_mixer-devel	GL-devel SDL_ttf-devel glew-devel openal-devel libflac-devel libvorbis-devel enet-devel 
-BuildRequires:	lua-devel inotify-tools-devel 
+Url:		http://sourceforge.net/projects/lipsofsuna/
+Source0:	http://sourceforge.net/projects/%{name}/files/%name}/%{version}/%{name}-%{version}.tar.gz
+Patch0:		lipsofsuna-0.8.0-linkage.patch
+BuildRequires:	boost-devel
+BuildRequires:	inotify-tools-devel
+BuildRequires:	pkgconfig(bullet)
+BuildRequires:	pkgconfig(flac)
+BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(glew)
+BuildRequires:	pkgconfig(glu)
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libenet)
+BuildRequires:	pkgconfig(lua)
+BuildRequires:	pkgconfig(ogg)
+BuildRequires:	pkgconfig(OGRE)
+BuildRequires:	pkgconfig(OIS)
+BuildRequires:	pkgconfig(openal)
+BuildRequires:	pkgconfig(sqlite3)
+BuildRequires:	pkgconfig(vorbis)
+BuildRequires:	pkgconfig(zlib)
 
 %description
-Lips of Suna is a tongue-in-cheek dungeon crawl game that
-takes place in the chaotic dungeons of Suna. 
-The five intelligent races of the world descend to the dungeons
-with their goal to save the world from a conclusive disaster.
+Lips of Suna is a tongue-in-cheek dungeon crawl game that takes place in the
+chaotic dungeons of Suna. The five intelligent races of the world descend to
+the dungeons with their goal to save the world from a conclusive disaster.
 
-In your journey to the depths of the dungeons, you will, among
-other things, have to fight creatures of different varieties, 
-solve quests, explore new places, and craft custom items.
-Luckily you don't need to do all this alone since you can crawl
-the dungeons with your friends.
+In your journey to the depths of the dungeons, you will, among other things,
+have to fight creatures of different varieties, solve quests, explore new
+places, and craft custom items. Luckily you don't need to do all this alone
+since you can crawl the dungeons with your friends.
 
-%prep 
+%files
+%{_bindir}/*
+%{_datadir}/%{name}
+%{_datadir}/applications/*.desktop
+%{_datadir}/pixmaps
+
+#----------------------------------------------------------------------------
+
+%prep
 %setup -q
+%patch0 -p1
 
 %build
 ./waf configure --prefix=%{_prefix} \
 		--libdir=%{_libdir} \
 		--bindir=%{_bindir} \
-		--relpath=false \
-		--optimize=true
+		--disable-relpath
 
 %install
-rm -rf %{buildroot}
-./waf install --destdir=$RPM_BUILD_ROOT
+./waf install --destdir=%{buildroot}
 
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
 Name=Lips of Suna
-Comment=%{Summary}
+Comment=Lips of Suna is a tongue-in-cheek dungeon crawl game
 Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Game;ArcadeGame;X-MandrivaLinux-MoreApplications-Games-Arcade;
+Categories=Game;ArcadeGame;
 EOF
-
-
-%files
-%defattr (-,root,root)
-%{_bindir}/*
-%{_datadir}/%name
-%{_datadir}/applications/*.desktop
-%{_datadir}/pixmaps
-
-
-%changelog
-* Wed Oct 26 2011 Alexander Khrukin <akhrukin@mandriva.org> 0.5.0-1
-+ Revision: 707405
-- lua and initify requirement fix
-- oops dot in summary fix
-- updated to upstream version rpmlint spec fixes
-
-  + Zombie Ryushu <ryushu@mandriva.org>
-    - imported package lipsofsuna
 

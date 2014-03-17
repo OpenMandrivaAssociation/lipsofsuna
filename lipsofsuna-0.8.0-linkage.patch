@@ -1,0 +1,12 @@
+diff -urN lipsofsuna-0.8.0/wscript lipsofsuna-0.8.0-patched/wscript
+--- lipsofsuna-0.8.0/wscript	2013-11-17 20:52:37.000000000 +1100
++++ lipsofsuna-0.8.0-patched/wscript	2014-03-17 21:30:33.106740880 +1100
+@@ -56,7 +56,7 @@
+ 	conf.env.LIBPATH_CORE = []
+ 	conf.env.LIBPATH_TEST = []
+ 	conf.env.LINKFLAGS_CORE = conf.env.LINKFLAGS
+-	conf.env.LINKFLAGS_CORE.extend(['-g'])
++	conf.env.LINKFLAGS_CORE.extend(['-lboost_system'])
+ 	conf.env.LINKFLAGS_TEST = conf.env.LINKFLAGS
+ 
+ 	# Dependencies.
