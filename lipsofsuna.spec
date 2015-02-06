@@ -1,7 +1,7 @@
 Summary:	Lips of Suna is a tongue-in-cheek dungeon crawl game
 Name:		lipsofsuna
 Version:	0.8.0
-Release:	1
+Release:	2
 License:	LGPLv3+
 Group:		Games/Arcade
 Url:		http://sourceforge.net/projects/lipsofsuna/
