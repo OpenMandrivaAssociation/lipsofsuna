@@ -4,7 +4,7 @@ Version:	0.8.0
 Release:	2
 License:	LGPLv3+
 Group:		Games/Arcade
-Url:		http://sourceforge.net/projects/lipsofsuna/
+Url:		https://sourceforge.net/projects/lipsofsuna/
 Source0:	http://sourceforge.net/projects/%{name}/files/%name}/%{version}/%{name}-%{version}.tar.gz
 Patch0:		lipsofsuna-0.8.0-linkage.patch
 BuildRequires:	boost-devel
